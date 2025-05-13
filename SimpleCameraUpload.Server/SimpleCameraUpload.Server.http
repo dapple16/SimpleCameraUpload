@@ -1,0 +1,6 @@
+@SimpleCameraUpload.Server_HostAddress = http://localhost:5262
+
+GET {{SimpleCameraUpload.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
