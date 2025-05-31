@@ -1,3 +1,5 @@
+using Scalar.AspNetCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +7,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+var corsPolicy = "CorsPolicy";
+
+builder.Services.AddCors(options =>
+{
+	var cors = builder.Configuration.GetSection("cors");
+	var allowedOrigins = cors.GetSection("allowedOrigins").Get<string[]>();
+	options.AddPolicy(corsPolicy, builder =>
+	{
+		builder
+		.WithOrigins(allowedOrigins)
+		.AllowAnyHeader()
+		.AllowAnyMethod()
+		.AllowCredentials();
+	});
+});
+
 
 var app = builder.Build();
 
@@ -14,8 +33,14 @@ app.MapStaticAssets();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+	app.MapOpenApi();
+	app.MapScalarApiReference(options =>
+	{
+		options.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+	});
 }
+
+app.UseCors(corsPolicy);
 
 app.UseHttpsRedirection();
 
