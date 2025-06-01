@@ -2,14 +2,16 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Enable detailed logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Trace);
 
+// Add services
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var corsPolicy = "CorsPolicy";
-
 builder.Services.AddCors(options =>
 {
 	var cors = builder.Configuration.GetSection("cors");
@@ -24,13 +26,14 @@ builder.Services.AddCors(options =>
 	});
 });
 
-
 var app = builder.Build();
 
-app.UseDefaultFiles();
-app.MapStaticAssets();
+// Serve static files (needed to serve React frontend from wwwroot)
+app.UseDefaultFiles();        // looks for index.html
+app.UseStaticFiles();         // serve static assets from wwwroot
+app.MapStaticAssets();        // Scalar-specific additional mapping, optional
 
-// Configure the HTTP request pipeline.
+// Development tools
 if (app.Environment.IsDevelopment())
 {
 	app.MapOpenApi();
@@ -40,14 +43,13 @@ if (app.Environment.IsDevelopment())
 	});
 }
 
+// Middlewares
 app.UseCors(corsPolicy);
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
+// SPA fallback (React routing)
 app.MapFallbackToFile("/index.html");
 
 app.Run();
