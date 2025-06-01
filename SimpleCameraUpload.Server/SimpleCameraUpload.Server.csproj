@@ -8,7 +8,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <SpaRoot>..\simplecameraupload.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
-    <SpaProxyServerUrl>https://localhost:61412</SpaProxyServerUrl>
+    <SpaProxyServerUrl>https://localhost:5011</SpaProxyServerUrl>
+	  <DockerfileRunArguments>-p 5010:8081</DockerfileRunArguments>
   </PropertyGroup>
 
   <ItemGroup>

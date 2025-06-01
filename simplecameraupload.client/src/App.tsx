@@ -20,7 +20,7 @@ function App() {
         formData.append('image', file);
 
         try {
-            const response = await fetch('/api/camera/upload', {
+            const response = await fetch('https://localhost:5010/api/camera/upload', {
                 method: 'POST',
                 body: formData,
             });
