@@ -7,6 +7,9 @@ builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 
+// Optional: Configure Kestrel from environment (used in Docker)
+builder.WebHost.ConfigureKestrel(o => { });
+
 // Add services
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
@@ -19,10 +22,10 @@ builder.Services.AddCors(options =>
 	options.AddPolicy(corsPolicy, builder =>
 	{
 		builder
-		.WithOrigins(allowedOrigins)
-		.AllowAnyHeader()
-		.AllowAnyMethod()
-		.AllowCredentials();
+			.WithOrigins(allowedOrigins)
+			.AllowAnyHeader()
+			.AllowAnyMethod()
+			.AllowCredentials();
 	});
 });
 

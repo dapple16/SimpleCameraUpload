@@ -1,0 +1,6 @@
+services:
+  simplecameraupload.server:
+    image: ${DOCKER_REGISTRY-}simplecameraupload
+    build:
+      context: .
+      dockerfile: Dockerfile

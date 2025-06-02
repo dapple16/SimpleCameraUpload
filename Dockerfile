@@ -32,9 +32,17 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 
 WORKDIR /app
 
+# Copy published app files
 COPY --from=backend-builder /app/publish .
 
-ENV ASPNETCORE_URLS=http://+:5000
-EXPOSE 5000
+# Copy certificate into container
+COPY cert/simplecameraupload.client.pfx ./cert/simplecameraupload.client.pfx
+
+# Set environment variables for Kestrel HTTPS binding
+ENV ASPNETCORE_URLS="https://+:5001"
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/app/cert/simplecameraupload.client.pfx
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password="password"
+
+EXPOSE 5001
 
 ENTRYPOINT ["dotnet", "SimpleCameraUpload.Server.dll"]
