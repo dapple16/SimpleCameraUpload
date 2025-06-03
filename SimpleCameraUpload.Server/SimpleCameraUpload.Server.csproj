@@ -6,7 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<SpaRoot>..\simplecameraupload.client\</SpaRoot>
-		<SpaProxyServerUrl>https://localhost:5173</SpaProxyServerUrl>
+		<SpaProxyServerUrl>https://localhost:5011</SpaProxyServerUrl>
 		<SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
 
 		<!-- Docker related -->
@@ -21,6 +21,12 @@
 		<PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="9.0.0-preview.3.24172.9" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1-Preview.1" />
 		<PackageReference Include="Scalar.AspNetCore" Version="2.4.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\simplecameraupload.client\simplecameraupload.client.esproj">
+			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+		</ProjectReference>
 	</ItemGroup>
 
 </Project>

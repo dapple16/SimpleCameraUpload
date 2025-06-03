@@ -37,11 +37,6 @@ if (!isDocker) {
     }
 }
 
-const target = env.ASPNETCORE_HTTPS_PORT
-    ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}`
-    : env.ASPNETCORE_URLS
-        ? env.ASPNETCORE_URLS.split(';')[0]
-        : 'https://localhost:5001';
 
 export default defineConfig({
     plugins: [plugin()],
@@ -51,14 +46,7 @@ export default defineConfig({
         }
     },
     server: {
-        proxy: {
-            '^/weatherforecast': {
-                target,
-                secure: false
-            }
-        },
-        host: true,
-        port: parseInt(env.DEV_SERVER_PORT || '5173'),
+        port: 5011,
         // Only enable HTTPS with local certs if NOT running in Docker
         ...(isDocker ? {} : {
             https: {
