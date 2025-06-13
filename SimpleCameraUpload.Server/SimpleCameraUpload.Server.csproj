@@ -11,7 +11,7 @@
 
 		<!-- Docker related -->
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<DockerfileRunArguments>-p 5001:5001</DockerfileRunArguments>
+		<DockerfileRunArguments>-p 5010:5010</DockerfileRunArguments>
 		<UserSecretsId>70d481f1-dd5a-4e47-ba4b-175dad569484</UserSecretsId>
 		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
 	</PropertyGroup>

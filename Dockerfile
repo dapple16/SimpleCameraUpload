@@ -12,6 +12,12 @@ RUN npm run build
 # Stage 2: Build the .NET backend
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS backend-builder
 
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get update \
+    && apt-get install -y nodejs \
+    && node --version
+
 WORKDIR /src
 
 COPY SimpleCameraUpload.Server/SimpleCameraUpload.Server.csproj ./SimpleCameraUpload.Server/
@@ -39,10 +45,10 @@ COPY --from=backend-builder /app/publish .
 COPY cert/simplecameraupload.client.pfx ./cert/simplecameraupload.client.pfx
 
 # Set environment variables for Kestrel HTTPS binding
-ENV ASPNETCORE_URLS="https://+:5001"
+ENV ASPNETCORE_URLS="https://+ :5010"
 ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/app/cert/simplecameraupload.client.pfx
 ENV ASPNETCORE_Kestrel__Certificates__Default__Password="password"
 
-EXPOSE 5001
+EXPOSE 5010
 
 ENTRYPOINT ["dotnet", "SimpleCameraUpload.Server.dll"]

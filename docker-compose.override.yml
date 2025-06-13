@@ -2,9 +2,9 @@ services:
   simplecameraupload.server:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_HTTPS_PORTS=5001
+      - ASPNETCORE_HTTPS_PORTS=5010
     ports:
-      - "5001:5001"
+      - "5010:5010"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
