@@ -42,12 +42,12 @@ WORKDIR /app
 COPY --from=backend-builder /app/publish .
 
 # Copy certificate into container
-COPY cert/simplecameraupload.client.pfx ./cert/simplecameraupload.client.pfx
+COPY cert/cert.pfx ./cert/cert.pfx
 
 # Set environment variables for Kestrel HTTPS binding
 ENV ASPNETCORE_URLS="https://+ :5010"
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/app/cert/simplecameraupload.client.pfx
-ENV ASPNETCORE_Kestrel__Certificates__Default__Password="password"
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/app/cert/cert.pfx
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password=YourStrongPassword123!
 
 EXPOSE 5010
 
